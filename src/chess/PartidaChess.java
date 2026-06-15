@@ -28,9 +28,19 @@ public class PartidaChess {
 	}
 	
 	private void setupInicial() {
-		colocarNovaPeca('b', 6, new Torre(tabul, Cor.WHITE));
-		colocarNovaPeca('e', 8, new Rei(tabul, Cor.BLACK));
-		colocarNovaPeca('e', 1, new Rei(tabul, Cor.WHITE));
+		colocarNovaPeca('c', 1, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('c', 2, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('d', 2, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('e', 2, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('e', 1, new Torre(tabul, Cor.WHITE));
+        colocarNovaPeca('d', 1, new Rei(tabul, Cor.WHITE));
+
+        colocarNovaPeca('c', 7, new Torre(tabul, Cor.BLACK));
+        colocarNovaPeca('c', 8, new Torre(tabul, Cor.BLACK));
+        colocarNovaPeca('d', 7, new Torre(tabul, Cor.BLACK));
+        colocarNovaPeca('e', 7, new Torre(tabul, Cor.BLACK));
+        colocarNovaPeca('e', 8, new Torre(tabul, Cor.BLACK));
+        colocarNovaPeca('d', 8, new Rei(tabul, Cor.BLACK));
 	}
 	
 	
