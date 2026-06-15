@@ -1,5 +1,7 @@
 package chess;
 
+import boardgame.Peca;
+import boardgame.Posicao;
 import boardgame.Tabuleiro;
 import chess.pecas.Rei;
 import chess.pecas.Torre;
@@ -22,6 +24,29 @@ public class PartidaChess {
 		}
 		return mat;
 	}
+	
+	
+	public PecaChess fazerNovoMovimento(PosicaoChess posicaoFonte, PosicaoChess posicaoAlvo) {
+		Posicao fonte = posicaoFonte.toPosicao();
+		Posicao alvo = posicaoAlvo.toPosicao();
+		validarPosicaoFonte(fonte);
+		Peca pecaCapturada = fazerMovimento(fonte, alvo);
+		return (PecaChess)pecaCapturada;
+	}
+	
+	private Peca fazerMovimento(Posicao fonte, Posicao alvo) {
+		Peca p = tabul.retirarPeca(fonte);
+		Peca capturada = tabul.retirarPeca(alvo);
+		tabul.colocarPeca(p, alvo);
+		return capturada;
+	}
+	
+	private void validarPosicaoFonte(Posicao posi) {
+		if (!tabul.temPeca(posi)){
+			throw new ChessException("Não tem uma peça na posição fonte.");
+		}
+	}
+	
 	
 	private void colocarNovaPeca(char coluna, int linha, PecaChess peca) {
 		tabul.colocarPeca(peca, new PosicaoChess(coluna, linha).toPosicao() );
