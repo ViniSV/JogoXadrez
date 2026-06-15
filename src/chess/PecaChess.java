@@ -1,6 +1,7 @@
 package chess;
 
 import boardgame.Peca;
+import boardgame.Posicao;
 import boardgame.Tabuleiro;
 
 public abstract class PecaChess extends Peca {
@@ -16,6 +17,10 @@ public abstract class PecaChess extends Peca {
 		return cor;
 	}
 	
+	protected boolean temPecaOponente(Posicao posi) {
+		PecaChess p = (PecaChess)getTab().peca(posi);
+		return p != null && p.getCor() != cor;
+	}
 	
 	
 }

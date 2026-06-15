@@ -30,6 +30,7 @@ public class PartidaChess {
 		Posicao fonte = posicaoFonte.toPosicao();
 		Posicao alvo = posicaoAlvo.toPosicao();
 		validarPosicaoFonte(fonte);
+		validarPosicaoAlvo(fonte, alvo);
 		Peca pecaCapturada = fazerMovimento(fonte, alvo);
 		return (PecaChess)pecaCapturada;
 	}
@@ -49,6 +50,13 @@ public class PartidaChess {
 			throw new ChessException("Não tem movimentos possíveis para esta peça.");
 		}
 	}
+	
+	private void validarPosicaoAlvo(Posicao fonte, Posicao alvo) {
+		if (!tabul.peca(fonte).movimentOPossivel(alvo)){
+			throw new ChessException("A peça escolhida não pode se mover para a posição escolhida.");
+		}
+	}
+	
 	
 	
 	private void colocarNovaPeca(char coluna, int linha, PecaChess peca) {
