@@ -25,6 +25,9 @@ public class Program {
 				System.out.print("Origem: ");
 				PosicaoChess fonte = UI.lerposicaoChess(sc); 
 				
+				boolean[][] proxMovimento = partidaChess.proxMovimento(fonte);
+				UI.clearScreen();
+				UI.printBoard(partidaChess.getPecas(), proxMovimento);
 				System.out.println();
 				System.out.print("Destino: ");
 				PosicaoChess alvo = UI.lerposicaoChess(sc);
