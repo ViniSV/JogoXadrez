@@ -16,4 +16,10 @@ public class Rei extends PecaChess{
 		return "R";
 	}
 
+	@Override
+	public boolean[][] movimentoSPossiveis() {
+		boolean[][] mat = new boolean[getTab().getLinhas()][getTab().getColunas()];
+		return mat;
+	}
+
 }

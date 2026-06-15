@@ -15,5 +15,11 @@ public class Torre extends PecaChess{
 	public String toString(){
 		return "T";
 	}
+	
+	@Override
+	public boolean[][] movimentoSPossiveis() {
+		boolean[][] mat = new boolean[getTab().getLinhas()][getTab().getColunas()];
+		return mat;
+	}
 
 }

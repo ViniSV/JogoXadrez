@@ -45,6 +45,9 @@ public class PartidaChess {
 		if (!tabul.temPeca(posi)){
 			throw new ChessException("Não tem uma peça na posição fonte.");
 		}
+		if (!tabul.peca(posi).temAlgumMovimento()) {
+			throw new ChessException("Não tem movimentos possíveis para esta peça.");
+		}
 	}
 	
 	
