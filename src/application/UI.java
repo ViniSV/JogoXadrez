@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import boardgame.Posicao;
 import chess.Cor;
+import chess.PartidaChess;
 import chess.PecaChess;
 import chess.PosicaoChess;
 
@@ -47,6 +48,14 @@ public class UI {
 			throw new InputMismatchException("Erro lendo a posição do xadrez, as posições válidas são de a1 até h8.");
 		}
 	}
+	
+	public static void imprimePartida(PartidaChess chessMatch) {
+		printBoard(chessMatch.getPecas());
+		System.out.println();
+		System.out.println("Turno: " + chessMatch.getTurno());
+		System.out.println("Esperando jogador: " + chessMatch.getJogadorAtual());
+	}
+	
 	
 	public static void printBoard(PecaChess[][] pecas) {
 		for (int i = 0; i < pecas.length; i++) {
