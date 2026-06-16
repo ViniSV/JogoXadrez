@@ -16,11 +16,14 @@ public abstract class PecaChess extends Peca {
 	public Cor getCor() {
 		return cor;
 	}
-	
+
+	public PosicaoChess getPosicaoChess() {
+		return PosicaoChess.fromPosicao(posi);
+	}
+
 	protected boolean temPecaOponente(Posicao posi) {
-		PecaChess p = (PecaChess)getTab().peca(posi);
+		PecaChess p = (PecaChess) getTab().peca(posi);
 		return p != null && p.getCor() != cor;
 	}
-	
-	
+
 }
