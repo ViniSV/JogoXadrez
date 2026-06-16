@@ -84,7 +84,8 @@ public class PartidaChess {
 	}
 
 	private Peca fazerMovimento(Posicao fonte, Posicao alvo) {
-		Peca p = tabul.retirarPeca(fonte);
+		PecaChess p = (PecaChess)tabul.retirarPeca(fonte);
+		p.aumentarContagemMove();
 		Peca capturada = tabul.retirarPeca(alvo);
 		tabul.colocarPeca(p, alvo);
 
@@ -97,7 +98,8 @@ public class PartidaChess {
 	}
 
 	private void desfazerMovimento(Posicao fonte, Posicao alvo, Peca capturada) {
-		Peca p = tabul.retirarPeca(alvo);
+		PecaChess p = (PecaChess)tabul.retirarPeca(alvo);
+		p.diminuirContagemMove();
 		tabul.colocarPeca(p, fonte);
 
 		if (capturada != null) {

@@ -7,6 +7,7 @@ import boardgame.Tabuleiro;
 public abstract class PecaChess extends Peca {
 
 	private Cor cor;
+	private int contagemMove;
 
 	public PecaChess(Tabuleiro tab, Cor cor) {
 		super(tab);
@@ -15,6 +16,18 @@ public abstract class PecaChess extends Peca {
 
 	public Cor getCor() {
 		return cor;
+	}
+
+	public int getContagemMove() {
+		return contagemMove;
+	}
+
+	public void aumentarContagemMove() {
+		contagemMove++;
+	}
+
+	public void diminuirContagemMove() {
+		contagemMove--;
 	}
 
 	public PosicaoChess getPosicaoChess() {
