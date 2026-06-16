@@ -18,7 +18,7 @@ public class Program {
 		PartidaChess partidaChess = new PartidaChess();
 		List<PecaChess> capturados = new ArrayList<>();
 
-		while (true) {
+		while (!partidaChess.getCheckMate()) {
 			try {
 				UI.clearScreen();
 				UI.imprimePartida(partidaChess, capturados);
@@ -46,6 +46,8 @@ public class Program {
 				sc.nextLine();
 			}
 		}
+		UI.clearScreen();
+		UI.imprimePartida(partidaChess, capturados);
 
 	}
 
