@@ -43,11 +43,11 @@ public class PartidaChess {
 	public boolean getCheck() {
 		return check;
 	}
-	
+
 	public boolean getCheckMate() {
 		return checkMate;
 	}
-	
+
 	public PecaChess[][] getPecas() {
 		PecaChess[][] mat = new PecaChess[tabul.getLinhas()][tabul.getColunas()];
 		for (int i = 0; i < tabul.getLinhas(); i++) {
@@ -70,25 +70,25 @@ public class PartidaChess {
 		validarPosicaoFonte(fonte);
 		validarPosicaoAlvo(fonte, alvo);
 		Peca pecaCapturada = fazerMovimento(fonte, alvo);
-		
+
 		if (testeDeCheck(jogadorAtual)) {
 			desfazerMovimento(fonte, alvo, pecaCapturada);
 			throw new ChessException("Você não pode se colocar em cheque.");
 		}
-		
+
 		check = (testeDeCheck(oponente(jogadorAtual))) ? true : false;
-		
-		if (testeDeCheckMate (oponente(jogadorAtual))) {
+
+		if (testeDeCheckMate(oponente(jogadorAtual))) {
 			checkMate = true;
-		}else {
+		} else {
 			proxTurno();
 		}
-		
+
 		return (PecaChess) pecaCapturada;
 	}
 
 	private Peca fazerMovimento(Posicao fonte, Posicao alvo) {
-		PecaChess p = (PecaChess)tabul.retirarPeca(fonte);
+		PecaChess p = (PecaChess) tabul.retirarPeca(fonte);
 		p.aumentarContagemMove();
 		Peca capturada = tabul.retirarPeca(alvo);
 		tabul.colocarPeca(p, alvo);
@@ -98,11 +98,29 @@ public class PartidaChess {
 			pecasCapturadas.add(capturada);
 		}
 
+		// #MovimentoEspecial Castling Small
+		if (p instanceof Rei && alvo.getColuna() == fonte.getColuna() + 2) {
+			Posicao fonteT = new Posicao(fonte.getLinha(), fonte.getColuna() + 3);
+			Posicao alvoT = new Posicao(fonte.getLinha(), fonte.getColuna() + 1);
+			PecaChess torre = (PecaChess) tabul.retirarPeca(fonteT);
+			tabul.colocarPeca(torre, alvoT);
+			torre.aumentarContagemMove();
+		}
+
+		// #MovimentoEspecial Castling Big
+		if (p instanceof Rei && alvo.getColuna() == fonte.getColuna() - 2) {
+			Posicao fonteT = new Posicao(fonte.getLinha(), fonte.getColuna() - 4);
+			Posicao alvoT = new Posicao(fonte.getLinha(), fonte.getColuna() - 1);
+			PecaChess torre = (PecaChess) tabul.retirarPeca(fonteT);
+			tabul.colocarPeca(torre, alvoT);
+			torre.aumentarContagemMove();
+		}
+
 		return capturada;
 	}
 
 	private void desfazerMovimento(Posicao fonte, Posicao alvo, Peca capturada) {
-		PecaChess p = (PecaChess)tabul.retirarPeca(alvo);
+		PecaChess p = (PecaChess) tabul.retirarPeca(alvo);
 		p.diminuirContagemMove();
 		tabul.colocarPeca(p, fonte);
 
@@ -111,6 +129,25 @@ public class PartidaChess {
 			pecasCapturadas.remove(capturada);
 			pecaNoTabuleiro.add(capturada);
 		}
+
+		// #MovimentoEspecial Castling Small
+		if (p instanceof Rei && alvo.getColuna() == fonte.getColuna() + 2) {
+			Posicao fonteT = new Posicao(fonte.getLinha(), fonte.getColuna() + 3);
+			Posicao alvoT = new Posicao(fonte.getLinha(), fonte.getColuna() + 1);
+			PecaChess torre = (PecaChess) tabul.retirarPeca(alvoT);
+			tabul.colocarPeca(torre, fonteT);
+			torre.diminuirContagemMove();
+		}
+
+		// #MovimentoEspecial Castling Big
+		if (p instanceof Rei && alvo.getColuna() == fonte.getColuna() - 2) {
+			Posicao fonteT = new Posicao(fonte.getLinha(), fonte.getColuna() - 4);
+			Posicao alvoT = new Posicao(fonte.getLinha(), fonte.getColuna() - 1);
+			PecaChess torre = (PecaChess) tabul.retirarPeca(alvoT);
+			tabul.colocarPeca(torre, fonteT);
+			torre.diminuirContagemMove();
+		}
+
 	}
 
 	private void validarPosicaoFonte(Posicao posi) {
@@ -148,7 +185,8 @@ public class PartidaChess {
 	}
 
 	private PecaChess rei(Cor cor) {
-		List<Peca> list = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == cor).collect(Collectors.toList());
+		List<Peca> list = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == cor)
+				.collect(Collectors.toList());
 		for (Peca p : list) {
 			if (p instanceof Rei) {
 				return (PecaChess) p;
@@ -156,10 +194,11 @@ public class PartidaChess {
 		}
 		throw new IllegalStateException("Não existe o rei da cor " + cor + " no tabuleiro.");
 	}
-	
+
 	private boolean testeDeCheck(Cor cor) {
 		Posicao reiPosicao = rei(cor).getPosicaoChess().toPosicao();
-		List<Peca> pecaOponente = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == oponente(cor)).collect(Collectors.toList());
+		List<Peca> pecaOponente = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == oponente(cor))
+				.collect(Collectors.toList());
 		for (Peca p : pecaOponente) {
 			boolean[][] mat = p.movimentoSPossiveis();
 			if (mat[reiPosicao.getLinha()][reiPosicao.getColuna()]) {
@@ -173,13 +212,14 @@ public class PartidaChess {
 		if (!testeDeCheck(cor)) {
 			return false;
 		}
-		List<Peca> list = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == cor).collect(Collectors.toList());
+		List<Peca> list = pecaNoTabuleiro.stream().filter(x -> ((PecaChess) x).getCor() == cor)
+				.collect(Collectors.toList());
 		for (Peca p : list) {
 			boolean[][] mat = p.movimentoSPossiveis();
 			for (int i = 0; i < tabul.getLinhas(); i++) {
 				for (int j = 0; j < tabul.getColunas(); j++) {
 					if (mat[i][j]) {
-						Posicao fonte = ((PecaChess)p).getPosicaoChess().toPosicao();
+						Posicao fonte = ((PecaChess) p).getPosicaoChess().toPosicao();
 						Posicao alvo = new Posicao(i, j);
 						Peca capturada = fazerMovimento(fonte, alvo);
 						boolean testeCheck = testeDeCheck(cor);
@@ -193,13 +233,13 @@ public class PartidaChess {
 		}
 		return true;
 	}
-	
+
 	private void setupInicial() {
 		colocarNovaPeca('a', 1, new Torre(tabul, Cor.WHITE));
 		colocarNovaPeca('b', 1, new Cavalo(tabul, Cor.WHITE));
 		colocarNovaPeca('c', 1, new bispo(tabul, Cor.WHITE));
 		colocarNovaPeca('d', 1, new Rainha(tabul, Cor.WHITE));
-		colocarNovaPeca('e', 1, new Rei(tabul, Cor.WHITE));
+		colocarNovaPeca('e', 1, new Rei(tabul, Cor.WHITE, this));
 		colocarNovaPeca('f', 1, new bispo(tabul, Cor.WHITE));
 		colocarNovaPeca('g', 1, new Cavalo(tabul, Cor.WHITE));
 		colocarNovaPeca('h', 1, new Torre(tabul, Cor.WHITE));
@@ -211,12 +251,12 @@ public class PartidaChess {
 		colocarNovaPeca('f', 2, new peao(tabul, Cor.WHITE));
 		colocarNovaPeca('g', 2, new peao(tabul, Cor.WHITE));
 		colocarNovaPeca('h', 2, new peao(tabul, Cor.WHITE));
-		
+
 		colocarNovaPeca('a', 8, new Torre(tabul, Cor.BLACK));
 		colocarNovaPeca('b', 8, new Cavalo(tabul, Cor.BLACK));
 		colocarNovaPeca('c', 8, new bispo(tabul, Cor.BLACK));
 		colocarNovaPeca('d', 8, new Rainha(tabul, Cor.BLACK));
-		colocarNovaPeca('e', 8, new Rei(tabul, Cor.BLACK));
+		colocarNovaPeca('e', 8, new Rei(tabul, Cor.BLACK, this));
 		colocarNovaPeca('f', 8, new bispo(tabul, Cor.BLACK));
 		colocarNovaPeca('g', 8, new Cavalo(tabul, Cor.BLACK));
 		colocarNovaPeca('h', 8, new Torre(tabul, Cor.BLACK));
