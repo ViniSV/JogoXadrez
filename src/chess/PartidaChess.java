@@ -9,6 +9,7 @@ import boardgame.Posicao;
 import boardgame.Tabuleiro;
 import chess.pecas.Rei;
 import chess.pecas.Torre;
+import chess.pecas.peao;
 
 public class PartidaChess {
 
@@ -191,13 +192,29 @@ public class PartidaChess {
 	}
 	
 	private void setupInicial() {
-		colocarNovaPeca('h', 7, new Torre(tabul, Cor.WHITE));
-		colocarNovaPeca('d', 1, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('a', 1, new Torre(tabul, Cor.WHITE));
 		colocarNovaPeca('e', 1, new Rei(tabul, Cor.WHITE));
+		colocarNovaPeca('h', 1, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('a', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('b', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('c', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('d', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('e', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('f', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('g', 2, new peao(tabul, Cor.WHITE));
+		colocarNovaPeca('h', 2, new peao(tabul, Cor.WHITE));
 		
-		colocarNovaPeca('b', 8, new Torre(tabul, Cor.BLACK));
-		colocarNovaPeca('a', 8, new Rei(tabul, Cor.BLACK));
-		
+		colocarNovaPeca('a', 8, new Torre(tabul, Cor.BLACK));
+		colocarNovaPeca('e', 8, new Rei(tabul, Cor.BLACK));
+		colocarNovaPeca('h', 8, new Torre(tabul, Cor.BLACK));
+		colocarNovaPeca('a', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('b', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('c', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('d', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('e', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('f', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('g', 7, new peao(tabul, Cor.BLACK));
+		colocarNovaPeca('h', 7, new peao(tabul, Cor.BLACK));
 	}
 
 }
