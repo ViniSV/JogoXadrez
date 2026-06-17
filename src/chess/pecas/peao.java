@@ -3,12 +3,16 @@ package chess.pecas;
 import boardgame.Posicao;
 import boardgame.Tabuleiro;
 import chess.Cor;
+import chess.PartidaChess;
 import chess.PecaChess;
 
 public class peao extends PecaChess {
 
-	public peao(Tabuleiro tab, Cor cor) {
+	private PartidaChess chessMatch;
+
+	public peao(Tabuleiro tab, Cor cor, PartidaChess chessMatch) {
 		super(tab, cor);
+		this.chessMatch = chessMatch;
 	}
 
 	@Override
@@ -41,6 +45,21 @@ public class peao extends PecaChess {
 			if (getTab().posicaoExiste(p) && temPecaOponente(p)) {
 				mat[p.getLinha()][p.getColuna()] = true;
 			}
+
+			// #Movimento especial En Passant white
+			if (posi.getLinha() == 3) {
+				Posicao left = new Posicao(posi.getLinha(), posi.getColuna() - 1);
+				if (getTab().posicaoExiste(left) && temPecaOponente(left)
+						&& getTab().peca(left) == chessMatch.getEnPassanVulneravel()) {
+					mat[left.getLinha() - 1][left.getColuna()] = true;
+				}
+				Posicao right = new Posicao(posi.getLinha(), posi.getColuna() + 1);
+				if (getTab().posicaoExiste(right) && temPecaOponente(right)
+						&& getTab().peca(right) == chessMatch.getEnPassanVulneravel()) {
+					mat[right.getLinha() - 1][right.getColuna()] = true;
+				}
+			}
+
 		} else {
 			p.setValores(posi.getLinha() + 1, posi.getColuna());
 			if (getTab().posicaoExiste(p) && !getTab().temPeca(p)) {
@@ -60,8 +79,21 @@ public class peao extends PecaChess {
 			if (getTab().posicaoExiste(p) && temPecaOponente(p)) {
 				mat[p.getLinha()][p.getColuna()] = true;
 			}
-		}
 
+			// #Movimento especial En Passant black
+			if (posi.getLinha() == 4) {
+				Posicao left = new Posicao(posi.getLinha(), posi.getColuna() - 1);
+				if (getTab().posicaoExiste(left) && temPecaOponente(left)
+						&& getTab().peca(left) == chessMatch.getEnPassanVulneravel()) {
+					mat[left.getLinha() + 1][left.getColuna()] = true;
+				}
+				Posicao right = new Posicao(posi.getLinha(), posi.getColuna() + 1);
+				if (getTab().posicaoExiste(right) && temPecaOponente(right)
+						&& getTab().peca(right) == chessMatch.getEnPassanVulneravel()) {
+					mat[right.getLinha() + 1][right.getColuna()] = true;
+				}
+			}
+		}
 		return mat;
 	}
 
