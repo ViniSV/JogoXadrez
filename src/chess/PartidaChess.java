@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import boardgame.Peca;
 import boardgame.Posicao;
 import boardgame.Tabuleiro;
+import chess.pecas.Cavalo;
 import chess.pecas.Rei;
 import chess.pecas.Torre;
 import chess.pecas.bispo;
@@ -194,9 +195,11 @@ public class PartidaChess {
 	
 	private void setupInicial() {
 		colocarNovaPeca('a', 1, new Torre(tabul, Cor.WHITE));
+		colocarNovaPeca('b', 1, new Cavalo(tabul, Cor.WHITE));
 		colocarNovaPeca('c', 1, new bispo(tabul, Cor.WHITE));
 		colocarNovaPeca('e', 1, new Rei(tabul, Cor.WHITE));
 		colocarNovaPeca('f', 1, new bispo(tabul, Cor.WHITE));
+		colocarNovaPeca('g', 1, new Cavalo(tabul, Cor.WHITE));
 		colocarNovaPeca('h', 1, new Torre(tabul, Cor.WHITE));
 		colocarNovaPeca('a', 2, new peao(tabul, Cor.WHITE));
 		colocarNovaPeca('b', 2, new peao(tabul, Cor.WHITE));
@@ -208,9 +211,11 @@ public class PartidaChess {
 		colocarNovaPeca('h', 2, new peao(tabul, Cor.WHITE));
 		
 		colocarNovaPeca('a', 8, new Torre(tabul, Cor.BLACK));
+		colocarNovaPeca('b', 8, new Cavalo(tabul, Cor.BLACK));
 		colocarNovaPeca('c', 8, new bispo(tabul, Cor.BLACK));
 		colocarNovaPeca('e', 8, new Rei(tabul, Cor.BLACK));
 		colocarNovaPeca('f', 8, new bispo(tabul, Cor.BLACK));
+		colocarNovaPeca('g', 8, new Cavalo(tabul, Cor.BLACK));
 		colocarNovaPeca('h', 8, new Torre(tabul, Cor.BLACK));
 		colocarNovaPeca('a', 7, new peao(tabul, Cor.BLACK));
 		colocarNovaPeca('b', 7, new peao(tabul, Cor.BLACK));
