@@ -37,6 +37,12 @@ public class Program {
 				if (capturada != null) {
 					capturados.add(capturada);
 				}
+				
+				if (partidaChess.getPromocao() != null) {
+					System.out.print("Digite a peça para promoção(B/C/T/Q):");
+					String type = sc.nextLine();
+					partidaChess.trocarPecaPromovida(type);
+				}
 
 			} catch (ChessException e) {
 				System.out.println(e.getMessage());
