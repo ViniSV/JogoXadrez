@@ -1,6 +1,5 @@
 package chess;
 
-import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -122,7 +121,7 @@ public class PartidaChess {
 			throw new IllegalStateException("Não tem peça para ser promovida.");
 		}
 		if (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
-			throw new InvalidParameterException("Tipo para promoção é inválido.");
+			return promocao;
 		}
 		
 		Posicao pos = promocao.getPosicaoChess().toPosicao();

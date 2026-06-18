@@ -37,10 +37,15 @@ public class Program {
 				if (capturada != null) {
 					capturados.add(capturada);
 				}
-				
+
 				if (partidaChess.getPromocao() != null) {
 					System.out.print("Digite a peça para promoção(B/C/T/Q):");
-					String type = sc.nextLine();
+					String type = sc.nextLine().toUpperCase();
+					while (!type.equals("B") && !type.equals("C") && !type.equals("T") && !type.equals("Q")) {
+						System.out.print("Valor inválido! Digite a peça para promoção(B/C/T/Q):");
+						type = sc.nextLine().toUpperCase();
+					}
+
 					partidaChess.trocarPecaPromovida(type);
 				}
 
